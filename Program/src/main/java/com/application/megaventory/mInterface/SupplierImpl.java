@@ -16,6 +16,7 @@ public class SupplierImpl implements SupplierInterface {
 
     @Override
     public String addSupplier(SupplierDTO supplierDTO) throws JSONException {
+        // Message body
         JSONObject requestBody = new JSONObject();
         JSONObject mvClient = new JSONObject();
         JSONObject mvContact = new JSONObject();
@@ -29,10 +30,14 @@ public class SupplierImpl implements SupplierInterface {
         requestBody.put("mvContacts", mvContact);
         requestBody.put("mvRecordAction", "Insert");
 
+        // Endpoint
         String url = "https://api.megaventory.com/v2017a/SupplierClient/SupplierClientUpdate";
+
+        // Header
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
+        // Request & Response
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(
                 url,
