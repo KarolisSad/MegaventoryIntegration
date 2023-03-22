@@ -1,5 +1,6 @@
 package com.application.logic.logicImplementation;
 
+import com.application.DTO.InvStockDTO;
 import com.application.DTO.InventoryLocationDTO;
 import com.application.logic.logicInterfaces.InventoryLogicInterface;
 import com.application.megaventory.mImplementation.InventoryLocationInterface;
@@ -18,5 +19,17 @@ public class InventoryLogicImpl implements InventoryLogicInterface {
     @Override
     public String addInventoryLocation(InventoryLocationDTO inventoryLocationDTO) throws JSONException {
         return inventoryLocation.addInventoryLocation(inventoryLocationDTO);
+    }
+
+    @Override
+    public String updateStock(InvStockDTO dto) {
+        try {
+            String inventoryID = inventoryLocation.getInventoryIDByAbbreviation(dto.getAbbreviation());
+            dto.setAbbreviation(inventoryID);
+
+            return inventoryLocation.updateStock(dto);
+        } catch (JSONException e) {
+            return "Error";
+        }
     }
 }

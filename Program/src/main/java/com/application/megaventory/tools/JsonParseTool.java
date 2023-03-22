@@ -39,4 +39,15 @@ public class JsonParseTool {
 
         return message.getJSONArray("mvSupplierClients").getJSONObject(0).getString("SupplierClientID");
     }
+
+    public static String ParseInventoryLocationIDFromJson(ResponseEntity<String> response) throws JSONException {
+        JSONObject message = new JSONObject(response.getBody());
+        String errorCode = message.getJSONObject("ResponseStatus").getString("ErrorCode");
+        if (Integer.parseInt(errorCode) == 500)
+        {
+            return message.getJSONObject("ResponseStatus").getString("Message");
+        }
+
+        return message.getJSONArray("mvInventoryLocations").getJSONObject(0).getString("InventoryLocationID");
+    }
 }
