@@ -1,5 +1,6 @@
 package com.application.endpoints;
 
+import com.application.DTO.InvStockDTO;
 import com.application.DTO.InventoryLocationDTO;
 import com.application.logic.logicInterfaces.InventoryLogicInterface;
 import jakarta.annotation.Resource;
@@ -23,6 +24,17 @@ public class InventoryController {
     public ResponseEntity<String> addInventoryLocation(@RequestBody InventoryLocationDTO dto){
         try{
             String result = inventoryLogic.addInventoryLocation(dto);
+            return new ResponseEntity<>(result, HttpStatus.CREATED);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping(value ="/inventory/updateStock",produces ={MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<String> updateStock(@RequestBody InvStockDTO dto){
+        try{
+            String result = inventoryLogic.updateStock(dto);
             return new ResponseEntity<>(result, HttpStatus.CREATED);
         }
         catch (Exception e){
